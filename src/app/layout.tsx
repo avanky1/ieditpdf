@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "iEditPDF — Client-Side PDF Toolkit",
+  title: "iEditPDF - Client-Side PDF Toolkit",
   description:
     "Free, private PDF tools that run entirely in your browser. Merge, split, rotate, watermark, protect, convert, and sign PDFs without uploading files.",
 };
