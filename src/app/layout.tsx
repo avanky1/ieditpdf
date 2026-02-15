@@ -20,12 +20,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-50 antialiased transition-colors duration-300`}>
+      <body
+        className={`${inter.className} bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-50 antialiased transition-colors duration-300`}
+      >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <header className="border-b border-neutral-100 dark:border-neutral-800 transition-colors duration-300">
             <div className="max-w-5xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between">
               <div className="flex items-center gap-3 min-w-0">
-                <a href="/" className="text-lg font-semibold tracking-tight hover:opacity-80 transition-opacity shrink-0">
+                <a
+                  href="/"
+                  className="text-lg font-semibold tracking-tight hover:opacity-80 transition-opacity shrink-0"
+                >
                   iEditPDF
                 </a>
                 <span className="hidden sm:inline text-xs text-neutral-400 truncate">
@@ -33,8 +38,18 @@ export default function RootLayout({
                 </span>
               </div>
               <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-                <a href="/about" className="text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors">About</a>
-                <a href="/contact" className="text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors">Contact</a>
+                <a
+                  href="/about"
+                  className="text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+                >
+                  About
+                </a>
+                <a
+                  href="/contact"
+                  className="text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+                >
+                  Contact
+                </a>
                 <ThemeToggle />
               </div>
             </div>
