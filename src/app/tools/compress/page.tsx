@@ -93,7 +93,7 @@ export default function CompressPage() {
           Compress
         </Button>
         {result && (
-          <Button variant="secondary" onClick={() => downloadBlob(result, "compressed.pdf")}>
+          <Button variant="secondary" onClick={() => downloadBlob(result, files[0]?.name || "compressed.pdf")}>
             Download
           </Button>
         )}

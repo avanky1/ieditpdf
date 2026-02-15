@@ -73,7 +73,7 @@ export default function WatermarkPage() {
           Add Watermark
         </Button>
         {result && (
-          <Button variant="secondary" onClick={() => downloadBlob(result, "watermarked.pdf")}>
+          <Button variant="secondary" onClick={() => downloadBlob(result, files[0]?.name || "watermarked.pdf")}>
             Download
           </Button>
         )}

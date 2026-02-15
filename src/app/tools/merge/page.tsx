@@ -28,7 +28,7 @@ export default function MergePage() {
   }
 
   function handleDownload() {
-    if (result) downloadBlob(result, "merged.pdf");
+    if (result) downloadBlob(result, files[0]?.name || "merged.pdf");
   }
 
   return (

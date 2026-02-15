@@ -38,7 +38,7 @@ export default function JpgToPdfPage() {
           Convert
         </Button>
         {result && (
-          <Button variant="secondary" onClick={() => downloadBlob(result, "images.pdf")}>
+          <Button variant="secondary" onClick={() => downloadBlob(result, files[0]?.name.replace(/\.\w+$/, ".pdf") || "images.pdf")}>
             Download
           </Button>
         )}

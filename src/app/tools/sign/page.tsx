@@ -117,7 +117,7 @@ export default function SignPage() {
           Add Signature
         </Button>
         {result && (
-          <Button variant="secondary" onClick={() => downloadBlob(result, "signed.pdf")}>
+          <Button variant="secondary" onClick={() => downloadBlob(result, files[0]?.name || "signed.pdf")}>
             Download
           </Button>
         )}

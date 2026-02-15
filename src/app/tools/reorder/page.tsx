@@ -68,7 +68,7 @@ export default function ReorderPage() {
         {result && (
           <Button
             variant="secondary"
-            onClick={() => downloadBlob(result, "reordered.pdf")}
+            onClick={() => downloadBlob(result, files[0]?.name || "reordered.pdf")}
           >
             Download
           </Button>

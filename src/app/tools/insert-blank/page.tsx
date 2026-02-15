@@ -100,7 +100,7 @@ export default function InsertBlankPage() {
           Insert Page
         </Button>
         {result && (
-          <Button variant="secondary" onClick={() => downloadBlob(result, "with-blank-page.pdf")}>
+          <Button variant="secondary" onClick={() => downloadBlob(result, files[0]?.name || "with-blank-page.pdf")}>
             Download
           </Button>
         )}

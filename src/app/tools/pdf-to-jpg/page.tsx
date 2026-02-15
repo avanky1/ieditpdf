@@ -46,7 +46,7 @@ export default function PdfToJpgPage() {
                 <span className="text-xs text-neutral-400">Page {i + 1}</span>
                 <Button
                   variant="secondary"
-                  onClick={() => downloadDataUrl(src, `page-${i + 1}.jpg`)}
+                  onClick={() => downloadDataUrl(src, `${files[0]?.name.replace(/\.pdf$/i, "")}-page-${i + 1}.jpg`)}
                   className="!text-xs !px-3 !py-1"
                 >
                   Download

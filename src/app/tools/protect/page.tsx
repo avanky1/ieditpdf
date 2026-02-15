@@ -48,7 +48,7 @@ export default function ProtectPage() {
           Protect
         </Button>
         {result && (
-          <Button variant="secondary" onClick={() => downloadBlob(result, "protected.pdf")}>
+          <Button variant="secondary" onClick={() => downloadBlob(result, files[0]?.name || "protected.pdf")}>
             Download
           </Button>
         )}
