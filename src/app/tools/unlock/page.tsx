@@ -48,7 +48,7 @@ export default function UnlockPage() {
           Unlock
         </Button>
         {result && (
-          <Button variant="secondary" onClick={() => downloadBlob(result, "unlocked.pdf")}>
+          <Button variant="secondary" onClick={() => downloadBlob(result, files[0]?.name || "unlocked.pdf")}>
             Download
           </Button>
         )}

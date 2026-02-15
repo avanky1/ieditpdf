@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "iEditPDF — Client-Side PDF Toolkit",
+  title: "iEditPDF - Client-Side PDF Toolkit",
   description:
     "Free, private PDF tools that run entirely in your browser. Merge, split, rotate, watermark, protect, convert, and sign PDFs without uploading files.",
 };
@@ -24,13 +24,17 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <header className="border-b border-neutral-100 dark:border-neutral-800 transition-colors duration-300">
             <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-              <a href="/" className="text-lg font-semibold tracking-tight hover:opacity-80 transition-opacity">
-                iEditPDF
-              </a>
-              <div className="flex items-center gap-4">
-                <span className="text-xs text-neutral-400 hidden sm:inline-block">
+              <div className="flex items-center gap-3">
+                <a href="/" className="text-lg font-semibold tracking-tight hover:opacity-80 transition-opacity">
+                  iEditPDF
+                </a>
+                <span className="text-xs text-neutral-400">
                   100% client-side · your files never leave your device
                 </span>
+              </div>
+              <div className="flex items-center gap-4">
+                <a href="/about" className="text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors">About</a>
+                <a href="/contact" className="text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors">Contact</a>
                 <ThemeToggle />
               </div>
             </div>

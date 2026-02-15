@@ -128,7 +128,7 @@ export default function ExtractPage() {
         {result && (
           <Button
             variant="secondary"
-            onClick={() => downloadBlob(result, "extracted.pdf")}
+            onClick={() => downloadBlob(result, files[0]?.name || "extracted.pdf")}
           >
             Download
           </Button>

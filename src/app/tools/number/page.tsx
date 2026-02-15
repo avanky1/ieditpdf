@@ -116,7 +116,7 @@ export default function NumberPage() {
         {result && (
           <Button
             variant="secondary"
-            onClick={() => downloadBlob(result, "numbered.pdf")}
+            onClick={() => downloadBlob(result, files[0]?.name || "numbered.pdf")}
           >
             Download
           </Button>

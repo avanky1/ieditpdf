@@ -69,7 +69,7 @@ export default function SplitPage() {
           Split
         </Button>
         {results.map((r, i) => (
-          <Button key={i} variant="secondary" onClick={() => downloadBlob(r, `split-${i + 1}.pdf`)}>
+          <Button key={i} variant="secondary" onClick={() => downloadBlob(r, files[0]?.name || `split-${i + 1}.pdf`)}>
             Download Part {i + 1}
           </Button>
         ))}

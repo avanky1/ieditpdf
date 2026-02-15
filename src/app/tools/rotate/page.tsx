@@ -50,7 +50,7 @@ export default function RotatePage() {
           Rotate
         </Button>
         {result && (
-          <Button variant="secondary" onClick={() => downloadBlob(result, "rotated.pdf")}>
+          <Button variant="secondary" onClick={() => downloadBlob(result, files[0]?.name || "rotated.pdf")}>
             Download
           </Button>
         )}

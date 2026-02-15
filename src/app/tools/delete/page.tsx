@@ -101,7 +101,7 @@ export default function DeletePage() {
         {result && (
           <Button
             variant="secondary"
-            onClick={() => downloadBlob(result, "pages-deleted.pdf")}
+            onClick={() => downloadBlob(result, files[0]?.name || "pages-deleted.pdf")}
           >
             Download
           </Button>
