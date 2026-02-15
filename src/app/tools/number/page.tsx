@@ -37,7 +37,7 @@ export default function NumberPage() {
   }
 
   const inputClass =
-    "w-full border border-neutral-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900";
+    "w-full border border-neutral-300 dark:border-neutral-700 rounded-lg px-3 py-2 text-sm bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-neutral-400";
 
   return (
     <ToolLayout
@@ -56,7 +56,7 @@ export default function NumberPage() {
       {files.length > 0 && (
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm text-neutral-600 mb-1">Position</label>
+            <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-1">Position</label>
             <select
               className={inputClass}
               value={position}
@@ -70,7 +70,7 @@ export default function NumberPage() {
           </div>
 
           <div>
-            <label className="block text-sm text-neutral-600 mb-1">Start Number</label>
+            <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-1">Start Number</label>
             <input
               type="number"
               min={1}
@@ -81,7 +81,7 @@ export default function NumberPage() {
           </div>
 
           <div>
-            <label className="block text-sm text-neutral-600 mb-1">Font Size</label>
+            <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-1">Font Size</label>
             <input
               type="number"
               min={6}
@@ -93,7 +93,7 @@ export default function NumberPage() {
           </div>
 
           <div>
-            <label className="block text-sm text-neutral-600 mb-1">Margin (pt)</label>
+            <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-1">Margin (pt)</label>
             <input
               type="number"
               min={0}

@@ -34,10 +34,10 @@ export default function UnlockPage() {
         files={files}
       />
       <div>
-        <label className="block text-sm text-neutral-600 mb-1">Current password</label>
+        <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-1">Current password</label>
         <input
           type="password"
-          className="w-full border border-neutral-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900"
+          className="w-full border border-neutral-300 dark:border-neutral-700 rounded-lg px-3 py-2 text-sm bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-neutral-400"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter current password"

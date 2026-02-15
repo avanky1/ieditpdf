@@ -29,7 +29,7 @@ export default function ContactPage() {
             <p className="font-medium text-neutral-800 dark:text-neutral-200">GitHub</p>
             <p className="mt-0.5">
               Report issues or contribute on{" "}
-              <a href="https://github.com/ieditpdf" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors">
                 GitHub
               </a>
             </p>

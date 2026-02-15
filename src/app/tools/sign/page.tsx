@@ -91,12 +91,12 @@ export default function SignPage() {
         files={files}
       />
       <div>
-        <label className="block text-sm text-neutral-600 mb-2">Draw your signature</label>
+        <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-2">Draw your signature</label>
         <canvas
           ref={canvasRef}
           width={400}
           height={150}
-          className="border border-neutral-300 rounded-lg cursor-crosshair touch-none"
+          className="border border-neutral-300 dark:border-neutral-700 rounded-lg cursor-crosshair touch-none"
           onMouseDown={startDraw}
           onMouseMove={draw}
           onMouseUp={stopDraw}
@@ -107,7 +107,7 @@ export default function SignPage() {
         />
         <button
           onClick={clearCanvas}
-          className="text-xs text-neutral-400 hover:text-neutral-600 mt-1 transition-colors"
+          className="text-xs text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300 mt-1 transition-colors cursor-pointer"
         >
           Clear
         </button>

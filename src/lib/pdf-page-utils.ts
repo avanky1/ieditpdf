@@ -10,7 +10,7 @@ export function parsePageRangeInput(input: string, max: number): number[] {
     if (part.includes("-")) {
       const [a, b] = part.split("-").map(Number);
       if (isNaN(a) || isNaN(b) || a < 1 || b < 1 || a > max || b > max) {
-        throw new Error(`Invalid range "${part}" — pages must be between 1 and ${max}`);
+        throw new Error(`Invalid range "${part}" - pages must be between 1 and ${max}`);
       }
       const lo = Math.min(a, b);
       const hi = Math.max(a, b);
@@ -18,7 +18,7 @@ export function parsePageRangeInput(input: string, max: number): number[] {
     } else {
       const n = Number(part);
       if (isNaN(n) || n < 1 || n > max) {
-        throw new Error(`Invalid page "${part}" — must be between 1 and ${max}`);
+        throw new Error(`Invalid page "${part}" - must be between 1 and ${max}`);
       }
       set.add(n - 1);
     }
@@ -55,7 +55,7 @@ export async function deletePages(
   );
 
   if (keep.length === 0) {
-    throw new Error("Cannot delete all pages — at least one page must remain");
+    throw new Error("Cannot delete all pages - at least one page must remain");
   }
 
   const dst = await PDFDocument.create();
@@ -118,4 +118,87 @@ export async function addPageNumbers(
   });
 
   return doc.save();
+}
+
+export interface HeaderFooterOptions {
+  headerText: string;
+  footerText: string;
+  fontSize: number;
+  position: "left" | "center" | "right";
+  margin: number;
+}
+
+export async function addHeaderFooter(
+  file: File,
+  opts: HeaderFooterOptions,
+): Promise<Uint8Array> {
+  const bytes = await readFileAsArrayBuffer(file);
+  const doc = await PDFDocument.load(bytes);
+  const font = await doc.embedFont(StandardFonts.Helvetica);
+  const pages = doc.getPages();
+
+  pages.forEach((page) => {
+    const { width, height } = page.getSize();
+
+    if (opts.headerText.trim()) {
+      const tw = font.widthOfTextAtSize(opts.headerText, opts.fontSize);
+      let x: number;
+      if (opts.position === "center") x = (width - tw) / 2;
+      else if (opts.position === "right") x = width - tw - opts.margin;
+      else x = opts.margin;
+
+      page.drawText(opts.headerText, {
+        x,
+        y: height - opts.margin - opts.fontSize,
+        size: opts.fontSize,
+        font,
+        color: rgb(0.2, 0.2, 0.2),
+      });
+    }
+
+    if (opts.footerText.trim()) {
+      const tw = font.widthOfTextAtSize(opts.footerText, opts.fontSize);
+      let x: number;
+      if (opts.position === "center") x = (width - tw) / 2;
+      else if (opts.position === "right") x = width - tw - opts.margin;
+      else x = opts.margin;
+
+      page.drawText(opts.footerText, {
+        x,
+        y: opts.margin,
+        size: opts.fontSize,
+        font,
+        color: rgb(0.2, 0.2, 0.2),
+      });
+    }
+  });
+
+  return doc.save();
+}
+
+export async function duplicatePages(
+  file: File,
+  pageIndices: number[],
+  copies: number = 1,
+): Promise<Uint8Array> {
+  const bytes = await readFileAsArrayBuffer(file);
+  const src = await PDFDocument.load(bytes);
+  const total = src.getPageCount();
+  const dst = await PDFDocument.create();
+
+  const duplicateSet = new Set(pageIndices);
+  const allIndices: number[] = [];
+
+  for (let i = 0; i < total; i++) {
+    allIndices.push(i);
+    if (duplicateSet.has(i)) {
+      for (let c = 0; c < copies; c++) {
+        allIndices.push(i);
+      }
+    }
+  }
+
+  const copied = await dst.copyPages(src, allIndices);
+  copied.forEach((p) => dst.addPage(p));
+  return dst.save();
 }

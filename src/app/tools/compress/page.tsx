@@ -51,8 +51,8 @@ export default function CompressPage() {
         files={files}
       />
       <div>
-        <label className="block text-sm text-neutral-600 mb-1">
-          Quality — {quality}% <span className="text-neutral-400">({qualityLabel(quality)})</span>
+        <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-1">
+          Quality - {quality}% <span className="text-neutral-400 dark:text-neutral-500">({qualityLabel(quality)})</span>
         </label>
         <input
           type="range"
@@ -61,7 +61,7 @@ export default function CompressPage() {
           step="1"
           value={quality}
           onChange={(e) => { setQuality(Number(e.target.value)); setResult(null); }}
-          className="w-full accent-neutral-900"
+          className="w-full accent-neutral-900 dark:accent-neutral-100"
         />
         <div className="flex justify-between text-xs text-neutral-400 mt-1">
           <span>Smaller file</span>
@@ -69,7 +69,7 @@ export default function CompressPage() {
         </div>
       </div>
       {result && (
-        <div className="rounded-lg bg-neutral-50 border border-neutral-200 p-4 text-sm text-neutral-700 space-y-1">
+        <div className="rounded-lg bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 p-4 text-sm text-neutral-700 dark:text-neutral-300 space-y-1">
           <div className="flex justify-between">
             <span>Original</span>
             <span className="font-medium">{formatSize(originalSize)}</span>
@@ -78,9 +78,9 @@ export default function CompressPage() {
             <span>Compressed</span>
             <span className="font-medium">{formatSize(compressedSize)}</span>
           </div>
-          <div className="flex justify-between border-t border-neutral-200 pt-1 mt-1">
+          <div className="flex justify-between border-t border-neutral-200 dark:border-neutral-700 pt-1 mt-1">
             <span>Saved</span>
-            <span className={`font-medium ${originalSize > compressedSize ? "text-green-700" : "text-red-600"}`}>
+            <span className={`font-medium ${originalSize > compressedSize ? "text-green-700 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}>
               {originalSize > compressedSize
                 ? `${((1 - compressedSize / originalSize) * 100).toFixed(1)}% smaller`
                 : `${((compressedSize / originalSize - 1) * 100).toFixed(1)}% larger`}

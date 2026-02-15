@@ -6,7 +6,7 @@ import FileUploader from "@/components/FileUploader";
 import { analyzePdfSize } from "@/lib/pdf-info-utils";
 import type { PdfSizeAnalysis } from "@/lib/pdf-info-utils";
 
-const MAX_BAR_MB = 50; // bar goes to 100% at 50 MB
+const MAX_BAR_MB = 50;
 
 export default function AnalyzePage() {
   const [files, setFiles] = useState<File[]>([]);
@@ -59,21 +59,21 @@ export default function AnalyzePage() {
         <div className="space-y-4">
 
           <div className="grid grid-cols-3 gap-4">
-            <div className="border border-neutral-200 rounded-lg p-4">
-              <p className="text-xs text-neutral-400">Total Size</p>
-              <p className="text-lg font-semibold text-neutral-900">
+            <div className="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-900">
+              <p className="text-xs text-neutral-400 dark:text-neutral-500">Total Size</p>
+              <p className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
                 {analysis.totalSizeFormatted}
               </p>
             </div>
-            <div className="border border-neutral-200 rounded-lg p-4">
-              <p className="text-xs text-neutral-400">Pages</p>
-              <p className="text-lg font-semibold text-neutral-900">
+            <div className="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-900">
+              <p className="text-xs text-neutral-400 dark:text-neutral-500">Pages</p>
+              <p className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
                 {analysis.pageCount}
               </p>
             </div>
-            <div className="border border-neutral-200 rounded-lg p-4">
-              <p className="text-xs text-neutral-400">Per Page (est.)</p>
-              <p className="text-lg font-semibold text-neutral-900">
+            <div className="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-900">
+              <p className="text-xs text-neutral-400 dark:text-neutral-500">Per Page (est.)</p>
+              <p className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
                 {analysis.estimatedPerPageSizeFormatted}
               </p>
             </div>
@@ -81,13 +81,13 @@ export default function AnalyzePage() {
 
 
           <div>
-            <p className="text-xs text-neutral-400 mb-1">
-              File size indicator (scale: 0 – {MAX_BAR_MB} MB)
+            <p className="text-xs text-neutral-400 dark:text-neutral-500 mb-1">
+              File size indicator (scale: 0 - {MAX_BAR_MB} MB)
             </p>
-            <div className="h-3 bg-neutral-100 rounded-full overflow-hidden">
+            <div className="h-3 bg-neutral-100 dark:bg-neutral-800 rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full ${
-                  analysis.isLargeFile ? "bg-red-500" : "bg-neutral-900"
+                  analysis.isLargeFile ? "bg-red-500" : "bg-neutral-900 dark:bg-neutral-100"
                 }`}
                 style={{ width: `${barPercent}%` }}
               />
@@ -98,14 +98,14 @@ export default function AnalyzePage() {
           {(analysis.isLargeFile || analysis.isManyPages) && (
             <div className="space-y-2">
               {analysis.isLargeFile && (
-                <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
-                  ⚠ Large file — this PDF is over 20 MB. Processing may be slow
+                <p className="text-sm text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700 rounded-lg px-3 py-2">
+                  ⚠ Large file - this PDF is over 20 MB. Processing may be slow
                   in the browser.
                 </p>
               )}
               {analysis.isManyPages && (
-                <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
-                  ⚠ Many pages — this PDF has over 100 pages. Thumbnail
+                <p className="text-sm text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700 rounded-lg px-3 py-2">
+                  ⚠ Many pages - this PDF has over 100 pages. Thumbnail
                   rendering may take a while.
                 </p>
               )}

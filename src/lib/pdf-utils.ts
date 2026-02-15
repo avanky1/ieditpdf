@@ -192,3 +192,162 @@ export async function insertBlankPage(
   doc.insertPage(insertIndex, pageSize);
   return doc.save();
 }
+
+export async function reversePdf(file: File): Promise<Uint8Array> {
+  const bytes = await readFileAsArrayBuffer(file);
+  const src = await PDFDocument.load(bytes);
+  const total = src.getPageCount();
+  const dst = await PDFDocument.create();
+  const indices = Array.from({ length: total }, (_, i) => total - 1 - i);
+  const copied = await dst.copyPages(src, indices);
+  copied.forEach((p) => dst.addPage(p));
+  return dst.save();
+}
+
+export async function grayscalePdf(
+  file: File,
+  quality: number = 80
+): Promise<Uint8Array> {
+  const pdfjsLib = await import("pdfjs-dist");
+  if (typeof window !== "undefined" && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
+  }
+
+  const scale = 1.5;
+  const jpegQuality = Math.max(0.3, Math.min(0.95, quality / 100));
+
+  const arrayBuffer = await readFileAsArrayBuffer(file);
+  const srcDoc = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
+  const newDoc = await PDFDocument.create();
+
+  for (let i = 1; i <= srcDoc.numPages; i++) {
+    const page = await srcDoc.getPage(i);
+    const viewport = page.getViewport({ scale });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    const ctx = canvas.getContext("2d")!;
+    await page.render({ canvasContext: ctx, viewport, canvas }).promise;
+
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+    for (let j = 0; j < data.length; j += 4) {
+      const gray = 0.299 * data[j] + 0.587 * data[j + 1] + 0.114 * data[j + 2];
+      data[j] = gray;
+      data[j + 1] = gray;
+      data[j + 2] = gray;
+    }
+    ctx.putImageData(imageData, 0, 0);
+
+    const jpegDataUrl = canvas.toDataURL("image/jpeg", jpegQuality);
+    const jpegBytes = Uint8Array.from(atob(jpegDataUrl.split(",")[1]), (c) => c.charCodeAt(0));
+    const jpegImage = await newDoc.embedJpg(jpegBytes);
+
+    const origViewport = page.getViewport({ scale: 1 });
+    const newPage = newDoc.addPage([origViewport.width, origViewport.height]);
+    newPage.drawImage(jpegImage, {
+      x: 0,
+      y: 0,
+      width: newPage.getWidth(),
+      height: newPage.getHeight(),
+    });
+
+    canvas.width = 0;
+    canvas.height = 0;
+    page.cleanup();
+  }
+
+  srcDoc.destroy();
+  return newDoc.save();
+}
+
+const STAMP_PRESETS: Record<string, { color: [number, number, number] }> = {
+  DRAFT: { color: [0.8, 0.2, 0.2] },
+  CONFIDENTIAL: { color: [0.8, 0.1, 0.1] },
+  APPROVED: { color: [0.1, 0.6, 0.2] },
+  COPY: { color: [0.2, 0.3, 0.8] },
+  "FINAL": { color: [0.1, 0.5, 0.1] },
+  "NOT APPROVED": { color: [0.7, 0.1, 0.1] },
+};
+
+export function getStampTypes(): string[] {
+  return Object.keys(STAMP_PRESETS);
+}
+
+export async function stampPdf(
+  file: File,
+  stampType: string,
+  opacity = 0.25,
+  fontSize = 60
+): Promise<Uint8Array> {
+  const bytes = await readFileAsArrayBuffer(file);
+  const doc = await PDFDocument.load(bytes);
+  const font = await doc.embedFont(StandardFonts.HelveticaBold);
+  const preset = STAMP_PRESETS[stampType] ?? STAMP_PRESETS["DRAFT"];
+  const [r, g, b] = preset.color;
+
+  doc.getPages().forEach((page) => {
+    const { width, height } = page.getSize();
+    const textWidth = font.widthOfTextAtSize(stampType, fontSize);
+    page.drawText(stampType, {
+      x: (width - textWidth) / 2,
+      y: height / 2,
+      size: fontSize,
+      font,
+      color: rgb(r, g, b),
+      opacity,
+      rotate: degrees(-45),
+    });
+  });
+
+  return doc.save();
+}
+
+export interface CropMargins {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+}
+
+export async function cropPdf(
+  file: File,
+  margins: CropMargins
+): Promise<Uint8Array> {
+  const bytes = await readFileAsArrayBuffer(file);
+  const doc = await PDFDocument.load(bytes);
+
+  doc.getPages().forEach((page) => {
+    const { width, height } = page.getSize();
+    const x = margins.left;
+    const y = margins.bottom;
+    const w = width - margins.left - margins.right;
+    const h = height - margins.top - margins.bottom;
+
+    if (w <= 0 || h <= 0) {
+      throw new Error("Crop margins are too large - no visible area remains.");
+    }
+
+    page.setCropBox(x, y, w, h);
+    page.setMediaBox(x, y, w, h);
+  });
+
+  return doc.save();
+}
+
+export async function removeMetadata(file: File): Promise<Uint8Array> {
+  const bytes = await readFileAsArrayBuffer(file);
+  const doc = await PDFDocument.load(bytes);
+
+  doc.setTitle("");
+  doc.setAuthor("");
+  doc.setSubject("");
+  doc.setCreator("");
+  doc.setProducer("");
+  doc.setKeywords([]);
+  doc.setCreationDate(new Date(0));
+  doc.setModificationDate(new Date(0));
+
+  return doc.save();
+}

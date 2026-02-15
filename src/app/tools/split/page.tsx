@@ -52,13 +52,13 @@ export default function SplitPage() {
       />
       {pageCount > 0 && (
         <div>
-          <p className="text-xs text-neutral-400 mb-1">{pageCount} pages detected</p>
-          <label className="block text-sm text-neutral-600 mb-1">
+          <p className="text-xs text-neutral-400 dark:text-neutral-500 mb-1">{pageCount} pages detected</p>
+          <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-1">
             Page ranges (e.g. 1-3, 5-5)
           </label>
           <input
             type="text"
-            className="w-full border border-neutral-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900"
+            className="w-full border border-neutral-300 dark:border-neutral-700 rounded-lg px-3 py-2 text-sm bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-neutral-400"
             value={rangeInput}
             onChange={(e) => setRangeInput(e.target.value)}
           />

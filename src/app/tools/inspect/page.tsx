@@ -8,11 +8,11 @@ import type { PdfFileInfo } from "@/lib/pdf-info-utils";
 
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
-    <tr className="border-b border-neutral-100 last:border-0">
-      <td className="py-2 pr-4 text-sm font-medium text-neutral-600 whitespace-nowrap">
+    <tr className="border-b border-neutral-100 dark:border-neutral-800 last:border-0">
+      <td className="py-3 px-4 text-sm font-medium text-neutral-600 dark:text-neutral-400 whitespace-nowrap">
         {label}
       </td>
-      <td className="py-2 text-sm text-neutral-900 break-all">{value || "—"}</td>
+      <td className="py-3 px-4 text-sm text-neutral-900 dark:text-neutral-100 break-all">{value || "—"}</td>
     </tr>
   );
 }
@@ -63,7 +63,7 @@ export default function InspectPage() {
       {error && <p className="text-sm text-red-600">{error}</p>}
 
       {info && (
-        <div className="border border-neutral-200 rounded-lg overflow-hidden">
+        <div className="border border-neutral-200 dark:border-neutral-700 rounded-lg overflow-hidden">
           <table className="w-full">
             <tbody>
               <InfoRow label="File Name" value={info.fileName} />

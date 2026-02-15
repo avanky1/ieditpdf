@@ -37,17 +37,17 @@ export default function WatermarkPage() {
       />
       <div className="space-y-3">
         <div>
-          <label className="block text-sm text-neutral-600 mb-1">Watermark text</label>
+          <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-1">Watermark text</label>
           <input
             type="text"
-            className="w-full border border-neutral-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900"
+            className="w-full border border-neutral-300 dark:border-neutral-700 rounded-lg px-3 py-2 text-sm bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-neutral-400"
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
         </div>
         <div className="flex gap-4">
           <div>
-            <label className="block text-sm text-neutral-600 mb-1">Opacity ({opacity})</label>
+            <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-1">Opacity ({opacity})</label>
             <input
               type="range"
               min="0.1"
@@ -58,10 +58,10 @@ export default function WatermarkPage() {
             />
           </div>
           <div>
-            <label className="block text-sm text-neutral-600 mb-1">Font size</label>
+            <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-1">Font size</label>
             <input
               type="number"
-              className="w-20 border border-neutral-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900"
+              className="w-20 border border-neutral-300 dark:border-neutral-700 rounded-lg px-3 py-2 text-sm bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-neutral-400"
               value={fontSize}
               onChange={(e) => setFontSize(Number(e.target.value))}
             />

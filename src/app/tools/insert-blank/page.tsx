@@ -52,13 +52,13 @@ export default function InsertBlankPage() {
       />
       {pageCount > 0 && (
         <div>
-          <label className="block text-sm text-neutral-600 mb-2">Insert position</label>
+          <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-2">Insert position</label>
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={() => { setPosition(Math.max(0, position - 1)); setResult(null); }}
               disabled={position === 0}
-              className="w-10 h-10 rounded-lg border border-neutral-300 text-neutral-700 flex items-center justify-center text-lg font-medium transition-colors hover:bg-neutral-50 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+              className="w-10 h-10 rounded-lg border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 flex items-center justify-center text-lg font-medium transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-800 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
             >
               −
             </button>
@@ -73,20 +73,20 @@ export default function InsertBlankPage() {
                   setPosition(v);
                   setResult(null);
                 }}
-                className="w-20 text-center border border-neutral-300 rounded-lg px-3 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-neutral-900"
+                className="w-20 text-center border border-neutral-300 dark:border-neutral-700 rounded-lg px-3 py-2 text-sm font-medium bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-neutral-400"
               />
-              <span className="text-sm text-neutral-500 ml-2">of {pageCount}</span>
+              <span className="text-sm text-neutral-500 dark:text-neutral-400 ml-2">of {pageCount}</span>
             </div>
             <button
               type="button"
               onClick={() => { setPosition(Math.min(pageCount, position + 1)); setResult(null); }}
               disabled={position === pageCount}
-              className="w-10 h-10 rounded-lg border border-neutral-300 text-neutral-700 flex items-center justify-center text-lg font-medium transition-colors hover:bg-neutral-50 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+              className="w-10 h-10 rounded-lg border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 flex items-center justify-center text-lg font-medium transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-800 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
             >
               +
             </button>
           </div>
-          <p className="text-xs text-neutral-400 mt-2 text-center">
+          <p className="text-xs text-neutral-400 dark:text-neutral-500 mt-2 text-center">
             {position === 0
               ? "Before page 1 (at the very beginning)"
               : position === pageCount
